@@ -1,18 +1,22 @@
 # Sinapse - Sistema de Notificação e Análise para Seleção de Editais
 
-Projeto desenvolvido na disciplina de Introdução a Projetos de Engenharia 2 (IPE 2) do Instituto Militar de Engenharia (IME) - 2025.
+Projeto em grupo desenvolvido na disciplina de Introdução a Projetos de Engenharia 2 (IPE 2) do Instituto Militar de Engenharia (IME) - 2025.
 
 ## Visão Geral
 
-O Sinapse é uma solução de engenharia de software voltada para a otimização do processo de captação de recursos para pesquisa. O sistema automatiza o monitoramento de editais de fomento, utilizando Inteligência Artificial para analisar a compatibilidade semântica entre as chamadas públicas e as linhas de pesquisa da instituição.
+O Sinapse é um protótipo para ajudar pesquisadores a acompanhar editais de fomento. Ele coleta as chamadas públicas da FINEP e usa embeddings para estimar a semelhança entre cada edital e as linhas de pesquisa cadastradas.
 
-O objetivo do projeto é mitigar a perda de oportunidades de financiamento decorrente da dispersão de informações, centralizando a busca e oferecendo uma análise preliminar de aderência técnica.
+O objetivo é reduzir a chance de um pesquisador perder um edital relevante, reunindo a busca num lugar só e ordenando os editais por semelhança.
+
+## Status
+
+Protótipo entregue na disciplina. Funcionou de ponta a ponta rodando localmente; não foi colocado em servidor, então a coleta só acontece quando `run_update.py` é executado manualmente.
 
 ## Arquitetura do Sistema
 
-O projeto opera através de um pipeline de dados contínuo, estruturado em três módulos principais:
+O projeto é organizado em três módulos:
 
-1. **Coleta de Dados (Web Scraping)**: Um crawler monitora periodicamente o portal da FINEP, extraindo metadados e textos dos editais.
+1. **Coleta de Dados (Web Scraping)**: Um crawler em Scrapy percorre o portal da FINEP e extrai metadados e textos dos editais.
 2. **Processamento e IA**:
    - Extração de texto dos documentos.
    - Vetorização (Embeddings) utilizando o modelo de linguagem `paraphrase-multilingual-MiniLM-L12-v2` (Sentence Transformers).
@@ -24,7 +28,7 @@ O projeto opera através de um pipeline de dados contínuo, estruturado em três
 - **Linguagem**: Python 3.10+
 - **Backend**: Flask e Flask-CORS
 - **Banco de Dados**: SQLite
-- **Crawler**: BeautifulSoup/Requests (`finep_spider.py`)
+- **Crawler**: Scrapy (`finep_spider.py`) e PyPDF2 para extrair texto dos PDFs
 - **Inteligência Artificial**: Sentence-Transformers e Scikit-learn
 - **Frontend**: HTML5 e Bootstrap 5
 
@@ -81,6 +85,6 @@ O projeto opera através de um pipeline de dados contínuo, estruturado em três
 - Credenciais sensíveis e o banco de dados local (`*.db`) estão ignorados no controle de versão (`.gitignore`).
 - O arquivo `.env.example` serve como template para as chaves necessárias, mantendo a segurança da aplicação.
 
-## Autor
+## Autoria
 
-Breno Bobeda - Engenharia de Computação (IME)
+Projeto em grupo da disciplina IPE 2 (IME, 2025). Breno Bobeda ficou com a parte de NLP e com a integração dos módulos. O código foi escrito com auxílio de IA.
